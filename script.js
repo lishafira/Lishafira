@@ -57,6 +57,7 @@ document.querySelectorAll('.navbar a').forEach(link => {
 updateActiveLink();
 document.getElementById('contact-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    alert('Thank you for your messages =w= but unfortunately this feature is not fully develop. Stay tune:D');
+    alert('Thank you for your messages =w= but unfortunately this feature is not fully develop. Stay tuned:D');
     this.reset();
+
 });
