@@ -180,8 +180,8 @@ span {
 }
 
 .about-img img {
-    width: 50vw;                
-    height: 50vw;                
+    width: 35vw;                
+    height: 40vw;                
     object-fit: cover;          
     border-radius: 50%;         
     box-shadow: 0 0 25px var(--main-color);
