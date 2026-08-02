@@ -11,6 +11,14 @@ menuIcon.onclick = () => {
     navbar.classList.toggle('active');
 };
 
+const typed = new Typed('.multiple-text', {
+  strings: ['Engineering Physics Student', 'STEM Enthusiast', 'Technology Enthusiast'],
+  typeSpeed: 100,
+  backSpeed: 100,
+  backDelay: 1000,
+  loop: true
+});
+
 function updateActiveLink() {
     let currentSectionId = '';
     const scrollPosition = window.scrollY + OFFSET_PX; 
