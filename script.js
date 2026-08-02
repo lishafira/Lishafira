@@ -60,9 +60,59 @@ navLinks.forEach(link => {
 });
 
 updateActiveLink();
+
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
-    contactForm.addEventListener('submit', function() {
-        alert('Thank you for your message! I will check it ASAP :D');
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault(); 
+
+        Swal.fire({
+            title: 'Sending...',
+            text: 'Please wait a moment',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        const formData = new FormData(contactForm);
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Message Sent!',
+                    text: 'Thank you for your message! I will get back to you soon :D',
+                    background: '#0f172a',
+                    color: '#fff',
+                    confirmButtonColor: '#38bdf8'
+                });
+                contactForm.reset();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: json.message || 'Something went wrong!',
+                    background: '#0f172a',
+                    color: '#fff',
+                    confirmButtonColor: '#38bdf8'
+                });
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Network error. Please try again later.',
+                background: '#0f172a',
+                color: '#fff',
+                confirmButtonColor: '#38bdf8'
+            });
+        });
     });
 }
