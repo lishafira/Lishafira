@@ -101,7 +101,7 @@ if (contactForm) {
                     text: data.message || 'Something went wrong!',
                     background: '#0f172a',
                     color: '#fff',
-                    confirmButtonColor: '#38bdf8'
+                    confirmButtonColor: 'rgb(119, 172, 195)'
                 });
             }
         } catch (error) {
@@ -111,7 +111,7 @@ if (contactForm) {
                 text: 'Something went wrong. Please try again.',
                 background: '#0f172a',
                 color: '#fff',
-                confirmButtonColor: '#38bdf8'
+                confirmButtonColor: '#96cee7'
             });
         }
     });
