@@ -62,9 +62,7 @@ navLinks.forEach(link => {
 updateActiveLink();
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Thank you for your message =w= but unfortunately this feature is not fully developed. Stay tuned :D');
-        this.reset();
+    contactForm.addEventListener('submit', function() {
+        alert('Thank you for your message! I will check it ASAP :D');
     });
 }
