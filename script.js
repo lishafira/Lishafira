@@ -63,9 +63,8 @@ updateActiveLink();
 
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault(); 
-
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
         Swal.fire({
             title: 'Sending...',
             text: 'Please wait a moment',
@@ -77,13 +76,15 @@ if (contactForm) {
 
         const formData = new FormData(contactForm);
 
-        fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: formData
-        })
-        .then(async (response) => {
-            let json = await response.json();
-            if (response.status == 200) {
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
                 Swal.fire({
                     icon: 'success',
                     title: 'Message Sent!',
@@ -97,22 +98,21 @@ if (contactForm) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: json.message || 'Something went wrong!',
+                    text: data.message || 'Something went wrong!',
                     background: '#0f172a',
                     color: '#fff',
                     confirmButtonColor: '#38bdf8'
                 });
             }
-        })
-        .catch(error => {
+        } catch (error) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'Network error. Please try again later.',
+                text: 'Something went wrong. Please try again.',
                 background: '#0f172a',
                 color: '#fff',
                 confirmButtonColor: '#38bdf8'
             });
-        });
+        }
     });
 }
