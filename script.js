@@ -6,22 +6,16 @@ let navLinks = document.querySelectorAll('header nav a');
 let scrollTimeout;
 const OFFSET_PX = 120; 
 
-menuIcon.onclick = () => {
-    menuIcon.classList.toggle('bx-x');
-    navbar.classList.toggle('active');
-};
-
-const typed = new Typed('.multiple-text', {
-  strings: ['Engineering Physics Student', 'STEM Enthusiast', 'Technology Enthusiast'],
-  typeSpeed: 100,
-  backSpeed: 100,
-  backDelay: 1000,
-  loop: true
-});
-
+if (menuIcon) {
+    menuIcon.onclick = () => {
+        menuIcon.classList.toggle('bx-x');
+        navbar.classList.toggle('active');
+    };
+}
 function updateActiveLink() {
     let currentSectionId = '';
     const scrollPosition = window.scrollY + OFFSET_PX; 
+
     for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         if (scrollPosition >= section.offsetTop) {
@@ -38,24 +32,27 @@ function updateActiveLink() {
     });
 }
 
-// Scroll animation and sticky header
 window.onscroll = () => {
     let header = document.querySelector('.header');
-    header.classList.toggle('sticky', window.scrollY > 100);
+    if (header) {
+        header.classList.toggle('sticky', window.scrollY > 100);
+    }
 
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(updateActiveLink, 100); 
 
-    navbar.classList.remove('active');
-    menuIcon.classList.remove('bx-x');
-};
-
-// Handle navigation link clicks
-document.querySelectorAll('.navbar a').forEach(link => {
-    link.addEventListener('click', (e) => {
-        // Close the mobile menu
+    if (navbar && menuIcon) {
         navbar.classList.remove('active');
         menuIcon.classList.remove('bx-x');
+    }
+};
+
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        if (navbar && menuIcon) {
+            navbar.classList.remove('active');
+            menuIcon.classList.remove('bx-x');
+        }
 
         navLinks.forEach(navLink => navLink.classList.remove('active'));
         e.currentTarget.classList.add('active');
@@ -63,8 +60,11 @@ document.querySelectorAll('.navbar a').forEach(link => {
 });
 
 updateActiveLink();
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Thank you for your messages =w= but unfortunately this feature is not fully develop. Stay tuned:D');
-    this.reset();
-});
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your message =w= but unfortunately this feature is not fully developed. Stay tuned :D');
+        this.reset();
+    });
+}
